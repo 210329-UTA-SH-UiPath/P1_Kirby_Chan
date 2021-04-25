@@ -1,18 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PizzaBox.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+using PizzaBox.Data.Repositories;
+using PizzaBox.Domain.Abstractions;
 
 namespace PizzaBox.Service
 {
@@ -30,10 +25,20 @@ namespace PizzaBox.Service
         {
 
             services.AddControllers();
-            services.AddDbContext<PizzaBoxContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PizzaBoxDb")));
+            services.AddDbContext<PizzaBoxContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("PizzaBoxDb"))
+            );
+            services.AddScoped<ICrustRepository, CrustRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IPizzaRepository, PizzaRepository>();
+            services.AddScoped<IPresetPizzaRepository, PresetPizzaRepository>();
+            services.AddScoped<ISizeRepository, SizeRepository>();
+            services.AddScoped<IStoreRepository, StoreRepository>();
+            services.AddScoped<IToppingRepository, ToppingRepository>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PizzaBox.Service", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PizzaBox Service", Version = "v1" });
             });
         }
 
