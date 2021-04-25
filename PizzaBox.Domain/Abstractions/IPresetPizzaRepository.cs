@@ -10,6 +10,6 @@ namespace PizzaBox.Domain.Abstractions
     {
         List<Models.PresetPizza> GetAllPresetPizzas();
 
-        Models.Pizza GetPresetPizzaById(int id);
+        Models.PresetPizza GetPresetPizzaById(int id);
     }
 }
