@@ -35,6 +35,7 @@ namespace PizzaBox.Data.Entities
         public DbSet<Store> Stores { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Pizza> Pizzas { get; set; }
+        public DbSet<PresetPizza> PresetPizzas { get; set; }
         public DbSet<Crust> Crusts { get; set; }
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Topping> Toppings { get; set; }
