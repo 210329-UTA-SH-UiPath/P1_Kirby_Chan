@@ -33,10 +33,10 @@ namespace PizzaBox.Service.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
-        [HttpGet("{id:int}")]//"api/SuperHeroDb/1"
+        [HttpGet("{id:int}")]//"api/Crust/1"
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Crust> Get([FromRoute] int id)//model binder of asp.net core will look for this parameter from request route
+        public ActionResult<Crust> Get(int id)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace PizzaBox.Service.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound($"The crust by id - {id} does not exist");
+                return NotFound($"The crust Id - {id} does not exist" + ex.Message);
             }
         }
     }

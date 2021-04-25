@@ -13,5 +13,25 @@ namespace PizzaBox.Service.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
+        private readonly ICustomerRepository repo;
+        public CustomerController(ICustomerRepository repo)
+        {
+            this.repo = repo;
+        }
+
+        [HttpGet("{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Customer> Get(string name)
+        {
+            try
+            {
+                return Ok(repo.GetCustomerByName(name));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(404, ex.Message);
+            }
+        }
     }
 }
