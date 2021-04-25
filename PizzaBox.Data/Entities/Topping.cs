@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PizzaBox.Data.Entities
 {
-    class Topping
+    public class Topping
     {
         [Key]
         public int ID { get; set; }

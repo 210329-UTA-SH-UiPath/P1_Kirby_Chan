@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PizzaBox.Data.Entities
 {
-    class PizzaBoxContext : DbContext
+    public class PizzaBoxContext : DbContext
     {
         public PizzaBoxContext()
         {

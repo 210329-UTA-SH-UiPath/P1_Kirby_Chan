@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PizzaBox.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace PizzaBox.Service
 {
@@ -28,6 +30,7 @@ namespace PizzaBox.Service
         {
 
             services.AddControllers();
+            services.AddDbContext<PizzaBoxContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PizzaBoxDb")));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PizzaBox.Service", Version = "v1" });

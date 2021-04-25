@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 
-namespace PizzaBox.Data.Entities
+namespace PizzaBox.Domain.Models
 {
     public class PresetPizza
     {
@@ -11,13 +8,9 @@ namespace PizzaBox.Data.Entities
         {
             Toppings = new List<Topping>();
         }
-        [Key]
         public int ID { get; set; }
-        [Required]
-        [StringLength(25)]
-        public string Name { get; set; }
-        [Required]
-        public virtual ICollection<Topping> Toppings { get; set; }
 
+        public string Name { get; set; }
+        public virtual ICollection<Topping> Toppings { get; set; }
     }
 }
