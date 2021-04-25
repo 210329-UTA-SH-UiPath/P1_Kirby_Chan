@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using PizzaBox.Domain.Models;
 using PizzaBox.Data.Entities;
+using System.Linq;
 
 namespace PizzaBox.Data
 {
@@ -53,76 +54,72 @@ namespace PizzaBox.Data
             mapOrder.TotalPrice = Order.TotalPrice;
             mapOrder.TimePlaced = Order.TimePlaced;
 
-            Order.Pizzas.ForEach(p => apizzas.Add(pizzaMapper.Map(p)));
+            Order.Pizzas.ToList().ForEach(p => mapOrder.Pizzas.Add( Map(p) ) );
 
-            //order.Customer = customerMapper.Map(model.Customer);
-
-            //List<Domain.Abstracts.APizza> apizzas = new List<Domain.Abstracts.APizza>();
-            //model.Pizzas.ToList().ForEach(p => apizzas.Add(pizzaMapper.Map(p)));
-            //order.Pizzas = apizzas;
-
-            //order.Price = model.TotalPrice;
-            //order.Store = storeMapper.Map(model.Store);
-            //order.TimePlaced = model.TimePlaced;
-
-            //order.ID = model.ID;
             return mapOrder;
         }
         public Entities.Order Map(Domain.Models.Order Order)
         {
-            Entities.Order order = new Entities.Order();
+            Entities.Order mapOrder = new Entities.Order();
+            
+            mapOrder.ID = Order.ID;
+            mapOrder.Store = Map(Order.Store);
+            mapOrder.Customer = Map(Order.Customer);
+            mapOrder.TotalPrice = Order.TotalPrice;
+            mapOrder.TimePlaced = Order.TimePlaced;
 
-            order.Customer = customerMapper.Map(model.Customer, context);
-            foreach (Domain.Abstracts.APizza pizza in model.Pizzas)
-            {
-                var mappedPizza = pizzaMapper.Map(pizza, context);
-                mappedPizza.Orders.Add(order);
-                order.Pizzas.Add(mappedPizza);
-            }
+            Order.Pizzas.ToList().ForEach(p => mapOrder.Pizzas.Add(Map(p) ) );
 
-            //model.Pizzas.ForEach(p => pizzas.Add(pizzaMapper.Map(p, context)));
-
-            order.Store = storeMapper.Map(model.Store, context);
-            order.TotalPrice = model.Price;
-            order.TimePlaced = DateTime.Now;
-            return order;
+            return mapOrder;
         }
         public Domain.Models.Pizza Map(Entities.Pizza Pizza)
         {
-            List<int?> pizzaToppingsId = new List<int?>();
-            pizzaToppingsId.Add(Pizza.Topping1Id);
-            pizzaToppingsId.Add(Pizza.Topping2Id);
-            pizzaToppingsId.Add(Pizza.Topping3Id);
-            pizzaToppingsId.Add(Pizza.Topping4Id);
-            pizzaToppingsId.Add(Pizza.Topping5Id);
-            return new Domain.Models.Pizza
-            {
-                Id = Pizza.PizzaId,
-                Name = Pizza.PizzaName,
-                ToppingsId = pizzaToppingsId
-            };
+            Domain.Models.Pizza mapPizza = new Domain.Models.Pizza();
+            mapPizza.ID = Pizza.ID;
+            mapPizza.PresetPizza = Map(Pizza.PresetPizza);
+            mapPizza.Order = Map(Pizza.Order);
+            mapPizza.Crust = Map(Pizza.Crust);
+            mapPizza.Size = Map(Pizza.Size);
+            mapPizza.Price = Pizza.Price;
+
+            Pizza.Toppings.ToList().ForEach(t => mapPizza.Toppings.Add(Map(t) ) );
+
+            return mapPizza;
         }
         public Entities.Pizza Map(Domain.Models.Pizza Pizza)
         {
-            return new Entities.Pizza
-            {
-                PizzaId = Pizza.Id,
-                PizzaName = Pizza.Name,
-                Topping1Id = Pizza.ToppingsId[0],
-                Topping2Id = Pizza.ToppingsId[1],
-                Topping3Id = Pizza.ToppingsId[2],
-                Topping4Id = Pizza.ToppingsId[3],
-                Topping5Id = Pizza.ToppingsId[4]
-            };
+            Entities.Pizza mapPizza = new Entities.Pizza();
+            mapPizza.ID = Pizza.ID;
+            mapPizza.PresetPizza = Map(Pizza.PresetPizza);
+            mapPizza.Order = Map(Pizza.Order);
+            mapPizza.Crust = Map(Pizza.Crust);
+            mapPizza.Size = Map(Pizza.Size);
+            mapPizza.Price = Pizza.Price;
+
+            Pizza.Toppings.ToList().ForEach(t => mapPizza.Toppings.Add(Map(t) ) );
+
+            return mapPizza;
         }
         public Domain.Models.PresetPizza Map(Entities.PresetPizza PresetPizza)
         {
-            throw new System.NotImplementedException();
+            Domain.Models.PresetPizza mapPizza = new Domain.Models.PresetPizza();
+            mapPizza.ID = PresetPizza.ID;
+            mapPizza.Name = PresetPizza.Name;
+            
+            PresetPizza.Toppings.ToList().ForEach(t => mapPizza.Toppings.Add(Map(t) ) );
+
+            return mapPizza;
         }
 
         public Entities.PresetPizza Map(Domain.Models.PresetPizza PresetPizza)
         {
-            throw new System.NotImplementedException();
+            Entities.PresetPizza mapPizza = new Entities.PresetPizza();
+            mapPizza.ID = PresetPizza.ID;
+            mapPizza.Name = PresetPizza.Name;
+
+            PresetPizza.Toppings.ToList().ForEach(t => mapPizza.Toppings.Add(Map(t)));
+
+            return mapPizza;
         }
 
         public Domain.Models.Size Map(Entities.Size Size)
