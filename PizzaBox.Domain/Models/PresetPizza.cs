@@ -11,6 +11,6 @@ namespace PizzaBox.Domain.Models
         public int ID { get; set; }
 
         public string Name { get; set; }
-        public virtual ICollection<Topping> Toppings { get; set; }
+        public List<Topping> Toppings { get; set; }
     }
 }

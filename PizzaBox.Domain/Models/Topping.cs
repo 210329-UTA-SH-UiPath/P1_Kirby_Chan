@@ -7,12 +7,15 @@ namespace PizzaBox.Domain.Models
     /// </summary>
     public class Topping
     {
-        private ICollection<PresetPizza> presetPizzas;
-
+        public Topping()
+        {
+            PresetPizzas = new List<PresetPizza>();
+            Pizzas = new List<Pizza>();
+        }
         public int ID { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public virtual ICollection<PresetPizza> PresetPizzas { get => presetPizzas; set => presetPizzas = value; }
-        public virtual ICollection<Pizza> Pizzas { get; set; }
+        public virtual List<PresetPizza> PresetPizzas { get; set; }
+        public virtual List<Pizza> Pizzas { get; set; }
     }
 }

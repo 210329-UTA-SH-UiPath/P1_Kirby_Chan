@@ -7,6 +7,11 @@ namespace PizzaBox.Data.Entities
 {
     public class Topping
     {
+        public Topping()
+        {
+            PresetPizzas = new List<PresetPizza>();
+            Pizzas = new List<Pizza>();
+        }
         [Key]
         public int ID { get; set; }
         [Required]

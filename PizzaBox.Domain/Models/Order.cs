@@ -14,9 +14,9 @@ namespace PizzaBox.Domain.Models
         }
 
         public int ID { get; set; }
-        public virtual Store Store { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual ICollection<Pizza> Pizzas { get; set; }
+        public  Store Store { get; set; }
+        public  Customer Customer { get; set; }
+        public List<Pizza> Pizzas { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime TimePlaced { get; set; }
     }

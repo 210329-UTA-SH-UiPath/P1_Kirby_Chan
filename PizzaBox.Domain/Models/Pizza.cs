@@ -13,11 +13,11 @@ namespace PizzaBox.Domain.Models
         }
 
         public int ID { get; set; }
-        public virtual PresetPizza PresetPizza { get; set; }
-        public virtual Order Order { get; set; }
-        public virtual Crust Crust { get; set; }
-        public virtual Size Size { get; set; }
-        public virtual ICollection<Topping> Toppings { get; set; }
+        public PresetPizza PresetPizza { get; set; }
+        public Order Order { get; set; }
+        public Crust Crust { get; set; }
+        public Size Size { get; set; }
+        public List<Topping> Toppings { get; set; }
         public decimal Price { get; set; }
     }
 }

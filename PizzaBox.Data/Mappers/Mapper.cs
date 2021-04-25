@@ -1,20 +1,38 @@
 using System.Collections.Generic;
 using PizzaBox.Domain.Models;
-using PizzaBox.Storing.Entities;
+using PizzaBox.Data.Entities;
 
-namespace PizzaBox.Storing
+namespace PizzaBox.Data
 {
     /// <summary>
     /// Maps DB entities to objects in Domain
     /// </summary>
     public class Mapper : IMapper
     {
+        public Domain.Models.Crust Map(Entities.Crust Crust)
+        {
+            return new Domain.Models.Crust
+            {
+                ID = Crust.ID,
+                Name = Crust.Name,
+                Price = Crust.Price
+            };
+        }
+        public Entities.Crust Map(Domain.Models.Crust Crust)
+        {
+            return new Entities.Crust
+            {
+                ID = Crust.ID,
+                Name = Crust.Name,
+                Price = Crust.Price
+            };
+        }
         public Domain.Models.Customer Map(Entities.Customer Customer)
         {
             return new Domain.Models.Customer
             {
-                Id = Customer.CustomerId,
-                Name = Customer.CustomerName
+                ID = Customer.ID,
+                Name = Customer.Name
             };
         }
 
@@ -22,26 +40,52 @@ namespace PizzaBox.Storing
         {
             return new Entities.Customer
             {
-                CustomerId = Customer.Id,
-                CustomerName = Customer.Name
+                ID = Customer.ID,
+                Name = Customer.Name
             };
         }
-        public Domain.Models.Store Map(Entities.Store Store)
+        public Domain.Models.Order Map(Entities.Order Order)
         {
-            return new Domain.Models.Store
-            {
-                Id = Store.StoreId,
-                Name = Store.StoreName
-            };
-        }
+            Domain.Models.Order mapOrder = new Domain.Models.Order();
+            mapOrder.ID = Order.ID;
+            mapOrder.Store = Map(Order.Store);
+            mapOrder.Customer = Map(Order.Customer);
+            mapOrder.TotalPrice = Order.TotalPrice;
+            mapOrder.TimePlaced = Order.TimePlaced;
 
-        public Entities.Store Map(Domain.Models.Store Store)
+            Order.Pizzas.ForEach(p => apizzas.Add(pizzaMapper.Map(p)));
+
+            //order.Customer = customerMapper.Map(model.Customer);
+
+            //List<Domain.Abstracts.APizza> apizzas = new List<Domain.Abstracts.APizza>();
+            //model.Pizzas.ToList().ForEach(p => apizzas.Add(pizzaMapper.Map(p)));
+            //order.Pizzas = apizzas;
+
+            //order.Price = model.TotalPrice;
+            //order.Store = storeMapper.Map(model.Store);
+            //order.TimePlaced = model.TimePlaced;
+
+            //order.ID = model.ID;
+            return mapOrder;
+        }
+        public Entities.Order Map(Domain.Models.Order Order)
         {
-            return new Entities.Store
+            Entities.Order order = new Entities.Order();
+
+            order.Customer = customerMapper.Map(model.Customer, context);
+            foreach (Domain.Abstracts.APizza pizza in model.Pizzas)
             {
-                StoreId = Store.Id,
-                StoreName = Store.Name
-            };
+                var mappedPizza = pizzaMapper.Map(pizza, context);
+                mappedPizza.Orders.Add(order);
+                order.Pizzas.Add(mappedPizza);
+            }
+
+            //model.Pizzas.ForEach(p => pizzas.Add(pizzaMapper.Map(p, context)));
+
+            order.Store = storeMapper.Map(model.Store, context);
+            order.TotalPrice = model.Price;
+            order.TimePlaced = DateTime.Now;
+            return order;
         }
         public Domain.Models.Pizza Map(Entities.Pizza Pizza)
         {
@@ -58,7 +102,6 @@ namespace PizzaBox.Storing
                 ToppingsId = pizzaToppingsId
             };
         }
-
         public Entities.Pizza Map(Domain.Models.Pizza Pizza)
         {
             return new Entities.Pizza
@@ -72,33 +115,22 @@ namespace PizzaBox.Storing
                 Topping5Id = Pizza.ToppingsId[4]
             };
         }
-
-        public Domain.Models.Crust Map(Entities.Crust Crust)
+        public Domain.Models.PresetPizza Map(Entities.PresetPizza PresetPizza)
         {
-            return new Domain.Models.Crust
-            {
-                Id = Crust.CrustId,
-                Name = Crust.CrustName,
-                Price = Crust.Price
-            };
+            throw new System.NotImplementedException();
         }
 
-        public Entities.Crust Map(Domain.Models.Crust Crust)
+        public Entities.PresetPizza Map(Domain.Models.PresetPizza PresetPizza)
         {
-            return new Entities.Crust
-            {
-                CrustId = Crust.Id,
-                CrustName = Crust.Name,
-                Price = Crust.Price
-            };
+            throw new System.NotImplementedException();
         }
 
         public Domain.Models.Size Map(Entities.Size Size)
         {
             return new Domain.Models.Size
             {
-                Id = Size.SizeId,
-                Name = Size.SizeName,
+                ID = Size.ID,
+                Name = Size.Name,
                 Price = Size.Price
             };
         }
@@ -107,18 +139,34 @@ namespace PizzaBox.Storing
         {
             return new Entities.Size
             {
-                SizeId = Size.Id,
-                SizeName = Size.Name,
+                ID = Size.ID,
+                Name = Size.Name,
                 Price = Size.Price
             };
         }
+        public Domain.Models.Store Map(Entities.Store Store)
+        {
+            return new Domain.Models.Store
+            {
+                ID = Store.ID,
+                Name = Store.Name
+            };
+        }
 
+        public Entities.Store Map(Domain.Models.Store Store)
+        {
+            return new Entities.Store
+            {
+                ID = Store.ID,
+                Name = Store.Name
+            };
+        }
         public Domain.Models.Topping Map(Entities.Topping Topping)
         {
             return new Domain.Models.Topping
             {
-                Id = Topping.ToppingId,
-                Name = Topping.ToppingName,
+                ID = Topping.ID,
+                Name = Topping.Name,
                 Price = Topping.Price
             };
         }
@@ -127,49 +175,9 @@ namespace PizzaBox.Storing
         {
             return new Entities.Topping
             {
-                ToppingId = Topping.Id,
-                ToppingName = Topping.Name,
+                ID = Topping.ID,
+                Name = Topping.Name,
                 Price = Topping.Price
-            };
-        }
-
-        public Domain.Models.Order Map(Entities.Order Order)
-        {
-            List<int?> orderToppingsId = new List<int?>();
-            orderToppingsId.Add(Order.Topping1Id);
-            orderToppingsId.Add(Order.Topping2Id);
-            orderToppingsId.Add(Order.Topping3Id);
-            orderToppingsId.Add(Order.Topping4Id);
-            orderToppingsId.Add(Order.Topping5Id);
-            return new Domain.Models.Order
-            {
-                Id = Order.OrderId,
-                StoreId = Order.StoreId,
-                CustomerId = Order.CustomerId,
-                PizzaId = Order.PizzaId,
-                CrustId = Order.CrustId,
-                SizeId = Order.SizeId,
-                ToppingsId = orderToppingsId,
-                Price = Order.Price
-            };
-        }
-
-        public Entities.Order Map(Domain.Models.Order Order)
-        {
-            return new Entities.Order
-            {
-                OrderId = Order.Id,
-                StoreId = Order.StoreId,
-                CustomerId = Order.CustomerId,
-                PizzaId = Order.PizzaId,
-                CrustId = Order.CrustId,
-                SizeId = Order.SizeId,
-                Topping1Id = Order.ToppingsId[0],
-                Topping2Id = Order.ToppingsId[1],
-                Topping3Id = Order.ToppingsId[2],
-                Topping4Id = Order.ToppingsId[3],
-                Topping5Id = Order.ToppingsId[4],
-                Price = Order.Price
             };
         }
     }
