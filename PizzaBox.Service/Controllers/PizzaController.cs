@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PizzaBox.Domain.Abstractions;
 using PizzaBox.Domain.Models;
+using System.Net.Mime;
 
 namespace PizzaBox.Service.Controllers
 {
@@ -44,6 +45,31 @@ namespace PizzaBox.Service.Controllers
             catch (Exception ex)
             {
                 return NotFound($"The pizza Id - {id} does not exist" + ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Consumes("application/json")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        public IActionResult Post([FromBody] Pizza Pizza) //model binder of asp.net core will look for this parameter from request body
+        {
+            if (Pizza == null)
+            {
+                return BadRequest("The pizza you are trying to add is empty");
+            }
+            else
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                else
+                {
+                    repo.AddPizza(Pizza);
+                    return CreatedAtAction(nameof(Get), new { id = Pizza.ID }, Pizza);
+                }
             }
         }
     }

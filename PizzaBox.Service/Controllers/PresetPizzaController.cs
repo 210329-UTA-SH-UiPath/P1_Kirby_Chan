@@ -39,7 +39,7 @@ namespace PizzaBox.Service.Controllers
         {
             try
             {
-                return Ok(repo.GetPresetPizzaById(id));
+                return Ok(repo.GetPresetPizzaById(id) );
             }
             catch (Exception ex)
             {

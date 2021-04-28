@@ -11,5 +11,7 @@ namespace PizzaBox.Domain.Abstractions
         List<Models.Pizza> GetAllPizzas();
 
         Models.Pizza GetPizzaById(int id);
+
+        void AddPizza(Models.Pizza Pizza);
     }
 }

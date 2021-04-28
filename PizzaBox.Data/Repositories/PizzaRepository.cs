@@ -31,5 +31,10 @@ namespace PizzaBox.Data.Repositories
             }
             return mapper.Map(Pizza);
         }
+        public void AddPizza(Pizza Pizza)
+        {
+            context.Add(mapper.Map(Pizza));
+            context.SaveChanges();
+        }
     }
 }
