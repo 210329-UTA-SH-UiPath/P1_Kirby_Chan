@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PizzaBox.Domain.Abstractions;
 using PizzaBox.Domain.Models;
 
@@ -30,7 +31,13 @@ namespace PizzaBox.Data.Repositories
 
         public List<Order> GetOrderHistoryByCustomer(int id)
         {
-            var OrderHistory = context.Orders.Where(x => x.Customer.ID == id);
+            var OrderHistory = context.Orders.Where(x => x.Customer.ID == id)
+                .Include(order => order.Customer)
+                .Include(order => order.Store)
+                .Include(order => order.Pizzas).ThenInclude(pizza => pizza.PresetPizza)
+                .Include(order => order.Pizzas).ThenInclude(pizza => pizza.Toppings)
+                .Include(order => order.Pizzas).ThenInclude(pizza => pizza.Crust)
+                .Include(order => order.Pizzas).ThenInclude(pizza => pizza.Size);
             if (OrderHistory == null)
             {
                 return null;
@@ -40,7 +47,13 @@ namespace PizzaBox.Data.Repositories
 
         public List<Order> GetOrderHistoryByStore(int id)
         {
-            var OrderHistory = context.Orders.Where(x => x.Store.ID == id);
+            var OrderHistory = context.Orders.Where(x => x.Store.ID == id)
+                .Include(order => order.Customer)
+                .Include(order => order.Store)
+                .Include(order => order.Pizzas).ThenInclude(pizza => pizza.PresetPizza)
+                .Include(order => order.Pizzas).ThenInclude(pizza => pizza.Toppings)
+                .Include(order => order.Pizzas).ThenInclude(pizza => pizza.Crust)
+                .Include(order => order.Pizzas).ThenInclude(pizza => pizza.Size);
             if (OrderHistory == null)
             {
                 return null;

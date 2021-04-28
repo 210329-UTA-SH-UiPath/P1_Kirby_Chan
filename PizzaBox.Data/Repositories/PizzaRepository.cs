@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PizzaBox.Domain.Abstractions;
 using PizzaBox.Domain.Models;
 
@@ -19,12 +20,21 @@ namespace PizzaBox.Data.Repositories
         public List<Pizza> GetAllPizzas()
         {
             var Pizzas = context.Pizzas;
-            return Pizzas.Select(mapper.Map).ToList();
+            return Pizzas.Include(pizza => pizza.PresetPizza)
+                .Include(pizza => pizza.Toppings)
+                .Include(pizza => pizza.Crust)
+                .Include(pizza => pizza.Size)
+                .Select(mapper.Map).ToList();
         }
 
         public Pizza GetPizzaById(int id)
         {
-            var Pizza = context.Pizzas.Where(x => x.ID == id).FirstOrDefault();
+            var Pizza = context.Pizzas.Where(x => x.ID == id)
+                .Include(pizza => pizza.PresetPizza)
+                .Include(pizza => pizza.Toppings)
+                .Include(pizza => pizza.Crust)
+                .Include(pizza => pizza.Size)
+                .FirstOrDefault();
             if (Pizza == null)
             {
                 return null;

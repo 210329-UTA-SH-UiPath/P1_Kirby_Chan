@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PizzaBox.Domain.Models
+namespace PizzaBox.Client.Models
 {
     public class PresetPizza
     {

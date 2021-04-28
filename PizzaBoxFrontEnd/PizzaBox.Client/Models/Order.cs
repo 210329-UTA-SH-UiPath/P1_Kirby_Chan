@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PizzaBox.Domain.Models
+namespace PizzaBox.Client.Models
 {
     /// <summary>
     /// Order Model

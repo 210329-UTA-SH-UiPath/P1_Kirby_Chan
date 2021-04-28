@@ -1,4 +1,4 @@
-namespace PizzaBox.Domain.Models
+namespace PizzaBox.Client.Models
 {
     /// <summary>
     /// Crust Model
