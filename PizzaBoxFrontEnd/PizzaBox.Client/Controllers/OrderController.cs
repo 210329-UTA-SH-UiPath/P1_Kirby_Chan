@@ -17,5 +17,13 @@ namespace PizzaBox.Client.Controllers
         {
             return View();
         }
+        public IActionResult ViewOrder()
+        {
+            return View();
+        }
+        public IActionResult SaveOrder()
+        {
+            return View();
+        }
     }
 }

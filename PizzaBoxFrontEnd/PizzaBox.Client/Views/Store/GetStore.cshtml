@@ -1,0 +1,11 @@
+﻿@model PizzaBox.Client.Models.Store
+
+@{
+    ViewData["Title"] = "GetStore";
+}
+
+<h1>Choose your Store.</h1>
+<form asp-controller="Store" asp-action="StoreSelected" method="post">
+    <select asp-for="ID" asp-items="ViewBag.Stores"> </select>
+    <input type="submit" value="Select One" />
+</form>

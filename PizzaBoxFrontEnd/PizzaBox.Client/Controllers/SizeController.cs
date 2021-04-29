@@ -8,7 +8,7 @@ namespace PizzaBox.Client.Controllers
 {
     public class SizeController : Controller
     {
-        Client client = new Client();
+        MenuClient client = new MenuClient();
         public IActionResult Index()
         {
             var sizes = client.GetAllSizes();

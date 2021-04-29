@@ -21,20 +21,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Store" asp-action="Index">Stores</a>
+                        <li class="nav-item dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Pizza Options
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="nav-link dropdown-item text-dark" asp-area="" asp-controller="PresetPizza" asp-action="Index">Preset Pizzas</a>
+                                <a class="nav-link dropdown-item text-dark" asp-area="" asp-controller="Crust" asp-action="Index">Crusts</a>
+                                <a class="nav-link dropdown-item text-dark" asp-area="" asp-controller="Size" asp-action="Index">Sizes</a>
+                                <a class="nav-link dropdown-item text-dark" asp-area="" asp-controller="Topping" asp-action="Index">Toppings</a>
+                            </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PresetPizza" asp-action="Index">Preset Pizzas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Crust" asp-action="Index">Crusts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Size" asp-action="Index">Sizes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Topping" asp-action="Index">Toppings</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="GetCustomer">Start Order</a>
                         </li>
                     </ul>
                 </div>

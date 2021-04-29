@@ -1,10 +1,10 @@
-﻿@model IEnumerable<PizzaBox.Client.Models.Crust>
+﻿@model IEnumerable<PizzaBox.Client.Models.Order>
 
 @{
-    ViewData["Title"] = "Crusts";
+    ViewData["Title"] = "ViewOrder";
 }
 
-<h1>View</h1>
+<h1>ViewOrder</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,10 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimePlaced)
             </th>
             <th></th>
         </tr>
@@ -25,16 +28,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.TotalPrice)
             </td>
-            @*<td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimePlaced)
+            </td>
+            <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>*@
+            </td>
         </tr>
 }
     </tbody>

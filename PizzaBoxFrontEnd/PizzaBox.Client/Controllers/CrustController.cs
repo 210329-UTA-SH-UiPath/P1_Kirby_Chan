@@ -8,7 +8,7 @@ namespace PizzaBox.Client.Controllers
 {
     public class CrustController : Controller
     {
-        Client client = new Client();
+        MenuClient client = new MenuClient();
         public IActionResult Index()
         {
             var crusts = client.GetAllCrusts();

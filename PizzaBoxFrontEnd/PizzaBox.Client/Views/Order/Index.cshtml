@@ -1,0 +1,19 @@
+﻿@model PizzaBox.Client.Models.Order
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@("Welcome, " + Model.Customer.Name + ". Your Store is " + Model.Store.Name)</h1>
+
+<div>
+    <h3>Please select an option.</h3>
+    <hr />
+    <a class="btn btn-primary" asp-area="" asp-controller="Order" asp-action="Index">View Order History</a>
+    <a class="btn btn-primary" asp-area="" asp-controller="Order" asp-action="Index">View Current Order</a>
+    <a class="btn btn-primary" asp-area="" asp-controller="Pizza" asp-action="Index">Add Pizza</a>
+    <a class="btn btn-primary" asp-area="" asp-controller="Order" asp-action="Index">Finish and Save Order</a>
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to Home</a>
+</div>
