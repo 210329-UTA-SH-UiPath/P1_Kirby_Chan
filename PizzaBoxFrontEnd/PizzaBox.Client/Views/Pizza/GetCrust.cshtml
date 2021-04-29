@@ -1,0 +1,11 @@
+﻿@model PizzaBox.Client.Models.Crust
+
+@{
+    ViewData["Title"] = "GetCrust";
+}
+
+<h1>Choose your Crust.</h1>
+<form asp-controller="Pizza" asp-action="CrustSelected" method="post">
+    <select class="form-select form-select-lg mb-3" asp-for="ID" asp-items="ViewBag.Crusts"></select>
+    <input type="submit" value="Select Crust" />
+</form>

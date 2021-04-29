@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PizzaBox.Client.Models
 {
@@ -11,6 +14,8 @@ namespace PizzaBox.Client.Models
         public Pizza()
         {
             Toppings = new List<Topping>();
+            Crust = new Crust();
+            Size = new Size();
         }
 
         public int ID { get; set; }
@@ -24,6 +29,19 @@ namespace PizzaBox.Client.Models
         public Size Size { get; set; }
         [Required]
         public List<Topping> Toppings { get; set; }
-        public decimal Price { get; set; }
+        public decimal Price
+        {
+            get
+            {
+                var price = 0.0m;
+                price += Crust.Price;
+                price += Size.Price;
+                price += Toppings.Sum(t => t.Price);
+                return price;
+            }
+            set
+            {
+            }
+        }
     }
 }

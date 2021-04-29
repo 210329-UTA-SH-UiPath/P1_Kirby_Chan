@@ -8,9 +8,17 @@ namespace PizzaBox.Client.Controllers
 {
     public class OrderController : Controller
     {
+        OrderClient client = new OrderClient();
         public IActionResult CustomerOrders(int id)
         {
-            return View();
+            var orders = client.GetOrdersByCustomerId(id);
+            return View("CustomerOrders", orders);
+        }
+
+        public IActionResult Index()
+        {
+            var sessionOrder = Utils.GetCurrentOrder(HttpContext.Session);
+            return View("Index", sessionOrder);
         }
 
         public IActionResult StoreOrders(int id)
@@ -19,10 +27,14 @@ namespace PizzaBox.Client.Controllers
         }
         public IActionResult ViewOrder()
         {
-            return View();
+            var sessionOrder = Utils.GetCurrentOrder(HttpContext.Session);
+            return View(sessionOrder);
         }
         public IActionResult SaveOrder()
         {
+            var sessionOrder = Utils.GetCurrentOrder(HttpContext.Session);
+            client.AddOrder(sessionOrder);
+
             return View();
         }
     }

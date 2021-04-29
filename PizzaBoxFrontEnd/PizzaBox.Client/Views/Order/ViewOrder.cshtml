@@ -1,47 +1,73 @@
-﻿@model IEnumerable<PizzaBox.Client.Models.Order>
+﻿@model PizzaBox.Client.Models.Order
 
-@{
-    ViewData["Title"] = "ViewOrder";
-}
-
-<h1>ViewOrder</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ID)
+                @Html.DisplayNameFor(model => model.TimePlaced)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TotalPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimePlaced)
+                @Html.DisplayNameFor(model => model.Store.Name)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ID)
+                @DateTime.Now
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
+                @Html.DisplayFor(modelItem => Model.TotalPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TimePlaced)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => Model.Store.Name)
             </td>
         </tr>
-}
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Preset Pizza
+            </th>
+            <th>
+                Crust
+            </th>
+            <th>
+                Size
+            </th>
+            <th>
+                Toppings
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Pizzas)
+        {
+
+            <tr>
+                <td>
+                    @item.PresetPizza.Name
+                </td>
+                <td>
+                    @item.Crust.Name
+                </td>
+                <td>
+                    @item.Size.Name
+                </td>
+                <td>
+                    @foreach (var topping in item.Toppings)
+                    {
+                        @(topping.Name + " / ");
+                    }
+                </td>
+            </tr>
+
+        }
     </tbody>
 </table>

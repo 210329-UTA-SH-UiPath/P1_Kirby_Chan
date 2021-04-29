@@ -1,0 +1,11 @@
+﻿@model PizzaBox.Client.Models.Topping
+
+@{
+    ViewData["Title"] = "GetTopping";
+}
+
+<h1>Choose your Topping.</h1>
+<form asp-controller="Pizza" asp-action="ToppingSelected" method="post">
+    <select class="form-select form-select-lg mb-3" asp-for="ID" asp-items="ViewBag.Toppings"></select>
+    <input type="submit" value="Select Topping" />
+</form>

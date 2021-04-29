@@ -1,0 +1,73 @@
+﻿@model PizzaBox.Client.Models.Pizza
+
+<table class="table">
+    <thead>
+    <th>
+        Price
+    </th>
+    </thead>
+    <tr>
+        <td>
+            @Model.Price
+        </td>
+    </tr>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Crust
+            </th>
+            <th>
+                Size
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Model.Crust.Name - @Model.Crust.Price
+            </td>
+
+            <td>
+                @Model.Size.Name - @Model.Size.Price
+            </td>
+        </tr>
+    </tbody>
+</table>
+@if (Model.Toppings.Count < 5)
+{
+    @Html.ActionLink("Add Topping", "GetTopping", "Pizza")
+    <br />
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Topping
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Toppings.Count; i++)
+        {
+            var item = Model.Toppings[i];
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Price
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary" asp-area="" asp-controller="Order" asp-action="Index">Return To Order Options</a>

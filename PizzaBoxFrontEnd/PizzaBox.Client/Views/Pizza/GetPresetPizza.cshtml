@@ -1,0 +1,11 @@
+﻿@model PizzaBox.Client.Models.PresetPizza
+
+@{
+    ViewData["Title"] = "GetPresetPizza";
+}
+
+<h1>Choose your Preset Pizza.</h1>
+<form asp-controller="Pizza" asp-action="PresetPizzaSelected" method="post">
+    <select asp-for="ID" asp-items="ViewBag.PresetPizzas"></select>
+    <input type="submit" value="Select Preset Pizza" />
+</form>

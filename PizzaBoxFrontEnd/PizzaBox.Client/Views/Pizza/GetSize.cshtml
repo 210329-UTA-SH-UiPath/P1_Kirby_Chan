@@ -1,0 +1,11 @@
+﻿@model PizzaBox.Client.Models.Size
+
+@{
+    ViewData["Title"] = "GetSize";
+}
+
+<h1>Choose your Crust.</h1>
+<form asp-controller="Pizza" asp-action="SizeSelected" method="post">
+    <select class="form-select form-select-lg mb-3" asp-for="ID" asp-items="ViewBag.Sizes"></select>
+    <input type="submit" value="Select Size" />
+</form>
