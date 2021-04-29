@@ -1,7 +1,7 @@
 using PizzaBox.Domain.Models;
 using Xunit;
 
-namespace PizzaBox.Testing.Tests
+namespace PizzaBox.Tests.Tests
 {
     public class PizzaTests
     {
@@ -11,7 +11,7 @@ namespace PizzaBox.Testing.Tests
             //arrange
             var sut = new Pizza();
 
-            var actual = sut.Name;
+            var actual = sut.PresetPizza;
 
             Assert.Null(actual);
 
@@ -27,7 +27,7 @@ namespace PizzaBox.Testing.Tests
             var actual = sut.Name;
 
             //assert
-            Assert.Equal(actual, "Store");
+            Assert.Equal(actual, null);
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace PizzaBox.Testing.Tests
             var sut = new Pizza();
 
             //act
-            var actual = sut.Name;
+            var actual = sut.PresetPizza;
 
             //assert
             Assert.Null(actual);
@@ -63,7 +63,7 @@ namespace PizzaBox.Testing.Tests
             var sut = new Size();
 
             //act
-            var actual = sut.Id;
+            var actual = sut.ID;
 
             //assert
             Assert.Equal(actual, 0);
