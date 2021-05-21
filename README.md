@@ -42,4 +42,4 @@ Kirby Chan
 
 ## Flow Chart
 
-![Database Diagram](./DBDiagram.png)
+![Database Diagram](./DBDiagram.JPG)
